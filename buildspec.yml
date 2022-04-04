@@ -2,15 +2,25 @@ version: 0.2
 
 phases:
   install:
+    run-as: root
     runtime-versions:
       java: corretto11
+    commands:
+      - echo This is a installation
+      - wget https://services.gradle.org/distributions/gradle-7.4.2-all.zip
+      - unzip -d /opt/gradle gradle-7.4.2-all.zip
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - echo Build started on `date`
-      - gradle build
+      - echo Starting build `date`
+      - echo Current directory is `pwd`
+      - whereis gradle
+      - which gradle
+      - /opt/gradle/gradle-7.4.2/bin/gradle -version
+      - /opt/gradle/gradle-7.4.2/bin/gradle clean
+      - /opt/gradle/gradle-7.4.2/bin/gradle build
   post_build:
     commands:
       - echo Build completed on `date`
