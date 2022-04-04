@@ -15,7 +15,7 @@ class ClientErrorHandler {
         servletRequest: HttpServletRequest,
         exception: Exception
     ): ResponseEntity<String>{
-        return ResponseEntity("Client not found or not exist", HttpStatus.NOT_FOUND)
+        return ResponseEntity("Client not found or not exist in DB", HttpStatus.NOT_FOUND)
     }
 
 }

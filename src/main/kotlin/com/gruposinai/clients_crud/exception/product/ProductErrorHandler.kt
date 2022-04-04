@@ -15,7 +15,7 @@ class ProductErrorHandler {
         httpServletRequest: HttpServletRequest,
         exception: Exception
     ): ResponseEntity<String>{
-        return ResponseEntity("Product not found or not exist", HttpStatus.NOT_FOUND)
+        return ResponseEntity("Product not found or not exist in DB", HttpStatus.NOT_FOUND)
     }
 
 }
