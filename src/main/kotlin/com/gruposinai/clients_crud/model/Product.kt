@@ -21,6 +21,6 @@ class Product(
     var price: Float,
 
     @ManyToMany(targetEntity = Client::class)
-    //@JsonIgnoreProperties("products")
+    @JsonIgnoreProperties("products")
     var clients: List<Client>
 )

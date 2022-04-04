@@ -49,7 +49,7 @@ class Client(
     @Column(name = "state", nullable = false)
     var state: String,
 
-    //@JsonIgnoreProperties("clients")
+    @JsonIgnoreProperties("clients")
     @ManyToMany(cascade = [CascadeType.MERGE, CascadeType.PERSIST], targetEntity = Product::class)
     var products: List<Product>
 )
