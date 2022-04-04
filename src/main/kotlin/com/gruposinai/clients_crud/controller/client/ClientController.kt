@@ -1,12 +1,12 @@
-package com.gruposinai.clients_crud.controller
+package com.gruposinai.clients_crud.controller.client
 
-import com.gruposinai.clients_crud.exception.ClientNotFoundException
+import com.gruposinai.clients_crud.exception.client.ClientNotFoundException
 import com.gruposinai.clients_crud.model.Client
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("clients")
+@RequestMapping("/clients")
 class ClientController(private val service: ClientService) {
 
     @PostMapping
@@ -14,11 +14,11 @@ class ClientController(private val service: ClientService) {
     fun saveClient(@RequestBody client: Client) = service.saveClient(client)
 
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     fun getClients() = service.findClients()
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     fun getClientById(@PathVariable id: Long): Client {
         val client = service.findClientById(id)
         return client ?: throw ClientNotFoundException()
@@ -31,23 +31,16 @@ class ClientController(private val service: ClientService) {
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     fun deleteClient(@RequestBody client: Client){
-        val foundClient = service.findClientById(client.id!!)
-        if(foundClient != null){
-            service.deleteClient(client)
-        } else {
-            throw ClientNotFoundException()
-        }
+        val foundClient = getClientById(client.id!!)
+        service.deleteClient(foundClient)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun deleteClientById(@PathVariable id: Long){
-        val foundClient = service.findClientById(id)
-        if(foundClient != null){
-            service.deleteClientById(id)
-        } else {
-            throw ClientNotFoundException()
-        }
+        val foundClient = getClientById(id)
+        service.deleteClient(foundClient)
     }
+
 
 }

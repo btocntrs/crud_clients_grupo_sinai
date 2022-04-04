@@ -1,5 +1,6 @@
 package com.gruposinai.clients_crud.model
 
+import com.fasterxml.jackson.annotation.*
 import javax.persistence.*
 import javax.validation.constraints.NotEmpty
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotEmpty
 class Client(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     var id: Long? = null,
 
     @NotEmpty(message = "email column cannot be empty or null")
@@ -22,12 +24,6 @@ class Client(
     @NotEmpty(message = "alias column cannot be empty or null")
     @Column(name = "alias", nullable = false, unique = true)
     var alias: String,
-
-    @Column(name = "ice_buyer")
-    var iceBuyer: Boolean = false,
-
-    @Column(name = "water_buyer")
-    var waterBuyer: Boolean = false,
 
     @NotEmpty(message = "customer_type column cannot be empty or null")
     @Column(name = "customer_type", nullable = false)
@@ -51,5 +47,9 @@ class Client(
 
     @NotEmpty(message = "state column cannot be empty or null")
     @Column(name = "state", nullable = false)
-    var state: String
+    var state: String,
+
+    //@JsonIgnoreProperties("clients")
+    @ManyToMany(cascade = [CascadeType.MERGE, CascadeType.PERSIST], targetEntity = Product::class)
+    var products: List<Product>
 )

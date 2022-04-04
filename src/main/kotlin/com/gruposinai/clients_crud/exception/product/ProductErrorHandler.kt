@@ -1,4 +1,4 @@
-package com.gruposinai.clients_crud.exception
+package com.gruposinai.clients_crud.exception.product
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -8,14 +8,14 @@ import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
-class ClientErrorHandler {
+class ProductErrorHandler {
 
-    @ExceptionHandler(ClientNotFoundException::class)
-    fun handleClientNotFoundException(
-        servletRequest: HttpServletRequest,
+    @ExceptionHandler(ProductNotFoundException::class)
+    fun handleProductNotFoundExcption(
+        httpServletRequest: HttpServletRequest,
         exception: Exception
     ): ResponseEntity<String>{
-        return ResponseEntity("Client not found or not exist", HttpStatus.NOT_FOUND)
+        return ResponseEntity("Product not found or not exist", HttpStatus.NOT_FOUND)
     }
 
 }
